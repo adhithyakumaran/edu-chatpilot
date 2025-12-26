@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 // export const API_URL = 'https://chatpilot-server-main.onrender.com/api';
-// export const API_URL = 'https://chatpilot-server-main.onrender.com/api';
-export const API_URL = 'http://localhost:5000/api';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 export const getDashboardData = async (userId: string) => {
     try {
