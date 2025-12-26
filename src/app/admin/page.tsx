@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createCourse, sendNotification } from '@/services/placementApi';
 import { toast } from 'sonner';
 import { LayoutDashboard, Plus, Loader2 } from 'lucide-react';
