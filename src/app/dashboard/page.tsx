@@ -34,6 +34,11 @@ export default function DashboardPage() {
                     router.push('/onboarding');
                     return; // Stop execution
                 }
+            } else {
+                // Fetch failed (likely user not in DB due to Render wipe)
+                // Redirect to onboarding to recreate profile
+                router.push('/onboarding');
+                return;
             }
             setLoading(false);
         };
