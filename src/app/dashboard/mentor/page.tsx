@@ -24,7 +24,7 @@ export default function MentorChatPage() {
     const fetchMessages = async () => {
         if (!user) return;
         try {
-            const res = await fetch(`http://localhost:5000/api/mentor/${user.uid}`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://edu-chatpilot-backend.onrender.com/api'}/mentor/${user.uid}`);
             if (res.ok) {
                 const data = await res.json();
                 setMessages(data);
@@ -54,7 +54,7 @@ export default function MentorChatPage() {
         if (!input.trim() || !user) return;
         setSending(true);
         try {
-            const res = await fetch('http://localhost:5000/api/mentor/send', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://edu-chatpilot-backend.onrender.com/api'}/mentor/send`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

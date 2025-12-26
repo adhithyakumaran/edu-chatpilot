@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // export const API_URL = 'https://chatpilot-server-main.onrender.com/api';
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const isProd = process.env.NODE_ENV === 'production';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || (isProd ? 'https://edu-chatpilot-backend.onrender.com/api' : 'http://localhost:5000/api');
 
 export const getDashboardData = async (userId: string) => {
     try {

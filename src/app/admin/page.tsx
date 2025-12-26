@@ -210,7 +210,7 @@ function MentorInbox() {
     // Fetch Inbox
     const fetchInbox = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/mentor/admin/inbox');
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://edu-chatpilot-backend.onrender.com/api'}/mentor/admin/inbox`);
             if (res.ok) setChats(await res.json());
         } catch (e) { console.error(e); }
     };
@@ -219,7 +219,7 @@ function MentorInbox() {
     useEffect(() => {
         if (!selectedUser) return;
         const loadChat = async () => {
-            const res = await fetch(`http://localhost:5000/api/mentor/${selectedUser}`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://edu-chatpilot-backend.onrender.com/api'}/mentor/${selectedUser}`);
             if (res.ok) setMessages(await res.json());
         };
         loadChat();
@@ -234,7 +234,7 @@ function MentorInbox() {
         if (!reply.trim() || !selectedUser) return;
         setLoading(true);
         try {
-            await fetch('http://localhost:5000/api/mentor/send', {
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://edu-chatpilot-backend.onrender.com/api'}/mentor/send`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userId: selectedUser, message: reply, sender: 'ADMIN' })
@@ -242,7 +242,7 @@ function MentorInbox() {
             setReply('');
             toast.success('Reply Sent!');
             // Refresh messages immediately
-            const res = await fetch(`http://localhost:5000/api/mentor/${selectedUser}`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://edu-chatpilot-backend.onrender.com/api'}/mentor/${selectedUser}`);
             if (res.ok) setMessages(await res.json());
         } catch (e) {
             toast.error('Failed to reply');
