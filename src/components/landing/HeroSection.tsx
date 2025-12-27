@@ -3,16 +3,16 @@ import Link from 'next/link';
 
 export default function HeroSection() {
     return (
-        <section className="relative min-h-[95vh] flex items-center bg-white overflow-hidden pt-32 pb-20">
+        <section className="relative min-h-[95vh] flex items-center bg-white overflow-hidden pt-24 sm:pt-32 pb-16 sm:pb-20">
             {/* Elegant Background Gradients */}
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-brand-secondary/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
                     {/* Left Content */}
-                    <div className="space-y-8 animate-fade-in-up max-w-2xl">
+                    <div className="space-y-6 sm:space-y-8 animate-fade-in-up max-w-2xl">
                         {/* Headline */}
                         <h1 className="text-4xl lg:text-[64px] font-bold text-gray-900 leading-[1.1] tracking-tight font-display">
                             Get Job-Ready for Tech Interviews in <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">24 Days</span>
@@ -27,15 +27,15 @@ export default function HeroSection() {
 
                         {/* Pricing Block - Reverted */}
                         <div>
-                            <div className="flex items-end gap-3 px-2">
-                                <span className="text-lg font-medium text-gray-400 line-through decoration-red-500 decoration-2">₹2,499</span>
-                                <span className="text-4xl font-extrabold text-brand-dark">
+                            <div className="flex flex-col sm:flex-row sm:items-end gap-2 sm:gap-3 px-2">
+                                <span className="text-lg font-medium text-gray-400 line-through decoration-red-500 decoration-2 w-fit">₹2,499</span>
+                                <span className="text-4xl font-extrabold text-brand-dark flex items-baseline flex-wrap gap-2">
                                     ₹499
-                                    <span className="text-lg font-medium text-gray-500 ml-2">Starts Jan 05</span>
+                                    <span className="text-lg font-medium text-gray-500">Starts Jan 05</span>
                                 </span>
-                                <span className="mb-1 text-sm font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded">80% OFF</span>
+                                <span className="mb-1 text-sm font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded w-fit">80% OFF</span>
                             </div>
-                            <p className="text-lg text-gray-500 font-medium mt-2 pl-3">
+                            <p className="text-lg text-gray-500 font-medium mt-2 pl-2 sm:pl-3">
                                 (One interview call is worth more than this price)
                             </p>
 

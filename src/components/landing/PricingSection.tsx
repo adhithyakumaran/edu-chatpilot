@@ -49,18 +49,18 @@ export default function PricingSection() {
                                 FESTIVE OFFER • ENDS SOON
                             </div>
 
-                            <div className="p-8 md:p-10">
-                                <div className="flex justify-between items-start mb-6">
+                            <div className="p-6 md:p-10">
+                                <div className="flex flex-col md:flex-row justify-between items-start mb-6 gap-4 font-sans">
                                     <div>
                                         <p className="text-gray-500 font-medium">Full Course Access</p>
-                                        <h3 className="text-3xl font-bold text-brand-dark">January Batch</h3>
+                                        <h3 className="text-2xl md:text-3xl font-bold text-brand-dark">January Batch</h3>
                                         <p className="text-sm text-brand-primary font-semibold mt-1">Starts Jan 05 • Tamil/English</p>
                                     </div>
-                                    <div className="text-right">
+                                    <div className="text-left md:text-right">
                                         <span className="block text-gray-400 line-through text-lg">₹2,499</span>
-                                        <span className="block text-4xl font-extrabold text-brand-secondary">
+                                        <span className="flex flex-wrap items-baseline gap-2 text-4xl font-extrabold text-brand-secondary">
                                             ₹499
-                                            <span className="text-sm font-medium text-gray-500 ml-2">/ Starts Jan 05</span>
+                                            <span className="text-sm font-medium text-gray-500">/ Starts Jan 05</span>
                                         </span>
                                     </div>
                                 </div>

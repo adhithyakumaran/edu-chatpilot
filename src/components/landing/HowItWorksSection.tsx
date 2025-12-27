@@ -14,19 +14,19 @@ export default function HowItWorksSection() {
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     {/* Left - Key Info */}
                     <div className="space-y-6">
-                        <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl p-8 text-white shadow-2xl">
-                            <div className="grid grid-cols-3 gap-6 text-center">
+                        <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl p-6 sm:p-8 text-white shadow-2xl">
+                            <div className="grid grid-cols-3 gap-2 sm:gap-6 text-center">
                                 <div>
-                                    <div className="text-4xl font-bold">24</div>
-                                    <div className="text-sm opacity-90">Days</div>
+                                    <div className="text-2xl sm:text-4xl font-bold">24</div>
+                                    <div className="text-xs sm:text-sm opacity-90">Days</div>
                                 </div>
                                 <div>
-                                    <div className="text-4xl font-bold">6</div>
-                                    <div className="text-sm opacity-90">Days/Week</div>
+                                    <div className="text-2xl sm:text-4xl font-bold">6</div>
+                                    <div className="text-xs sm:text-sm opacity-90">Days/Week</div>
                                 </div>
                                 <div>
-                                    <div className="text-4xl font-bold">2</div>
-                                    <div className="text-sm opacity-90">Hours/Day</div>
+                                    <div className="text-2xl sm:text-4xl font-bold">2</div>
+                                    <div className="text-xs sm:text-sm opacity-90">Hours/Day</div>
                                 </div>
                             </div>
                         </div>
