@@ -16,9 +16,9 @@ const resourceCategories = [
         bg: 'bg-orange-50',
         desc: 'General Studies & Strategy',
         items: [
-            { title: 'Unacademy Free Classes', url: 'https://unacademy.com/goal/ias/YOUR-FREE-CLASSES', desc: 'UPSC basics, current affairs, strategy', image: 'https://images.unsplash.com/photo-1576779435017-cbe0dce08285?q=80&w=800&auto=format&fit=crop' },
-            { title: 'BYJU’S Free Prep', url: 'https://byjus.com/upsc-free/', desc: 'Comprehensive preparation videos', image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=800&auto=format&fit=crop' },
-            { title: 'NCERT Books (PDFs)', url: 'https://ncert.nic.in/textbook.php', desc: 'Core UPSC foundation textbooks', image: 'https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?q=80&w=800&auto=format&fit=crop' }
+            { title: 'Unacademy Free Classes', url: 'https://unacademy.com/goal/ias/YOUR-FREE-CLASSES', desc: 'UPSC basics, current affairs, strategy', image: 'https://placehold.co/600x400/orange/white?text=UPSC+Basics' },
+            { title: 'BYJU’S Free Prep', url: 'https://byjus.com/upsc-free/', desc: 'Comprehensive preparation videos', image: 'https://placehold.co/600x400/orange/white?text=BYJUS+Prep' },
+            { title: 'NCERT Books (PDFs)', url: 'https://ncert.nic.in/textbook.php', desc: 'Core UPSC foundation textbooks', image: 'https://placehold.co/600x400/orange/white?text=NCERT+Books' }
         ]
     },
     {
@@ -29,10 +29,10 @@ const resourceCategories = [
         bg: 'bg-blue-50',
         desc: 'Embedded Systems, ESP32, LoRa',
         items: [
-            { title: 'NPTEL: Intro to IoT', url: 'https://onlinecourses.nptel.ac.in/noc24_ee29/preview', desc: 'Free certificate option available', image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop' },
-            { title: 'Coursera: IoT & Wireless', url: 'https://www.coursera.org/learn/iot', desc: 'Introduction to Wireless Comms', image: 'https://images.unsplash.com/photo-1563770095-39d468f9a51d?q=80&w=800&auto=format&fit=crop' },
-            { title: 'ESP32 Beginner Guide', url: 'https://randomnerdtutorials.com/getting-started-with-esp32/', desc: 'Random Nerd Tutorials', image: 'https://images.unsplash.com/photo-1555664424-778a69022365?q=80&w=800&auto=format&fit=crop' },
-            { title: 'LoRaWAN Basics', url: 'https://www.thethingsnetwork.org/docs/lorawan/', desc: 'The Things Network Documentation', image: 'https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=800&auto=format&fit=crop' }
+            { title: 'NPTEL: Intro to IoT', url: 'https://onlinecourses.nptel.ac.in/noc24_ee29/preview', desc: 'Free certificate option available', image: 'https://placehold.co/600x400/2563eb/white?text=IoT+NPTEL' },
+            { title: 'Coursera: IoT & Wireless', url: 'https://www.coursera.org/learn/iot', desc: 'Introduction to Wireless Comms', image: 'https://placehold.co/600x400/2563eb/white?text=Wireless+IoT' },
+            { title: 'ESP32 Beginner Guide', url: 'https://randomnerdtutorials.com/getting-started-with-esp32/', desc: 'Random Nerd Tutorials', image: 'https://placehold.co/600x400/2563eb/white?text=ESP32' },
+            { title: 'LoRaWAN Basics', url: 'https://www.thethingsnetwork.org/docs/lorawan/', desc: 'The Things Network Documentation', image: 'https://placehold.co/600x400/2563eb/white?text=LoRaWAN' }
         ]
     },
     {
@@ -43,10 +43,10 @@ const resourceCategories = [
         bg: 'bg-pink-50',
         desc: 'Full Stack, Frontend, Backend',
         items: [
-            { title: 'freeCodeCamp', url: 'https://www.freecodecamp.org/', desc: 'Full Stack Certification', image: 'https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=800&auto=format&fit=crop' },
-            { title: 'The Odin Project', url: 'https://www.theodinproject.com/', desc: 'Full Web Dev Pattern', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop' },
-            { title: 'React Official Docs', url: 'https://react.dev/learn', desc: 'Learn React from the creators', image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800&auto=format&fit=crop' },
-            { title: 'Node.js Playlist', url: 'https://www.youtube.com/playlist?list=PL4cUxeGkcC9gQeDH6xYhmO-db2mhoTSrT', desc: 'The Net Ninja (YouTube)', image: 'https://images.unsplash.com/photo-1618477247222-ac5913054c90?q=80&w=800&auto=format&fit=crop' }
+            { title: 'freeCodeCamp', url: 'https://www.freecodecamp.org/', desc: 'Full Stack Certification', image: 'https://placehold.co/600x400/db2777/white?text=freeCodeCamp' },
+            { title: 'The Odin Project', url: 'https://www.theodinproject.com/', desc: 'Full Web Dev Pattern', image: 'https://placehold.co/600x400/db2777/white?text=The+Odin+Project' },
+            { title: 'React Official Docs', url: 'https://react.dev/learn', desc: 'Learn React from the creators', image: 'https://placehold.co/600x400/db2777/white?text=React+Docs' },
+            { title: 'Node.js Playlist', url: 'https://www.youtube.com/playlist?list=PL4cUxeGkcC9gQeDH6xYhmO-db2mhoTSrT', desc: 'The Net Ninja (YouTube)', image: 'https://placehold.co/600x400/db2777/white?text=Node.js' }
         ]
     },
     {
@@ -57,10 +57,10 @@ const resourceCategories = [
         bg: 'bg-sky-50',
         desc: 'AWS, Google Cloud, Azure',
         items: [
-            { title: 'AWS Cloud Practitioner', url: 'https://www.aws.training/Details/Curriculum?id=20685', desc: 'Official Free Essentials Course', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop' },
-            { title: 'Google Cloud Skills', url: 'https://cloud.google.com/training', desc: 'Free Quests & Labs', image: 'https://images.unsplash.com/photo-1484557052118-f32bd2515076?q=80&w=800&auto=format&fit=crop' },
-            { title: 'Azure Fundamentals', url: 'https://learn.microsoft.com/en-us/training/azure/', desc: 'Microsoft Learn Path', image: 'https://images.unsplash.com/photo-1506399558188-acca3f85ed41?q=80&w=800&auto=format&fit=crop' },
-            { title: 'DevOps Beginner', url: 'https://www.youtube.com/watch?v=R8-O2AXtMTM', desc: 'freeCodeCamp Video', image: 'https://images.unsplash.com/photo-1667372393119-c81c0e839adb?q=80&w=800&auto=format&fit=crop' }
+            { title: 'AWS Cloud Practitioner', url: 'https://www.aws.training/Details/Curriculum?id=20685', desc: 'Official Free Essentials Course', image: 'https://placehold.co/600x400/0284c7/white?text=AWS+Cloud' },
+            { title: 'Google Cloud Skills', url: 'https://cloud.google.com/training', desc: 'Free Quests & Labs', image: 'https://placehold.co/600x400/0284c7/white?text=Google+Cloud' },
+            { title: 'Azure Fundamentals', url: 'https://learn.microsoft.com/en-us/training/azure/', desc: 'Microsoft Learn Path', image: 'https://placehold.co/600x400/0284c7/white?text=Azure' },
+            { title: 'DevOps Beginner', url: 'https://www.youtube.com/watch?v=R8-O2AXtMTM', desc: 'freeCodeCamp Video', image: 'https://placehold.co/600x400/0284c7/white?text=DevOps' }
         ]
     },
     {
@@ -71,8 +71,8 @@ const resourceCategories = [
         bg: 'bg-indigo-50',
         desc: 'SQL, MongoDB',
         items: [
-            { title: 'SQL for Data Science', url: 'https://www.coursera.org/learn/sql-for-data-science', desc: 'Coursera Audit Free', image: 'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?q=80&w=800&auto=format&fit=crop' },
-            { title: 'MongoDB University', url: 'https://university.mongodb.com', desc: 'Format MongoDB Courses', image: 'https://images.unsplash.com/photo-1594904351111-a072f80b1a71?q=80&w=800&auto=format&fit=crop' }
+            { title: 'SQL for Data Science', url: 'https://www.coursera.org/learn/sql-for-data-science', desc: 'Coursera Audit Free', image: 'https://placehold.co/600x400/4f46e5/white?text=SQL' },
+            { title: 'MongoDB University', url: 'https://university.mongodb.com', desc: 'Format MongoDB Courses', image: 'https://placehold.co/600x400/4f46e5/white?text=MongoDB' }
         ]
     },
     {
@@ -83,8 +83,8 @@ const resourceCategories = [
         bg: 'bg-teal-50',
         desc: 'Flutter, React Native',
         items: [
-            { title: 'Flutter & Dart', url: 'https://www.youtube.com/watch?v=VPvVD8t02U8', desc: 'freeCodeCamp Full Course', image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=800&auto=format&fit=crop' },
-            { title: 'React Native', url: 'https://www.youtube.com/playlist?list=PL4cUxeGkcC9hL6uk5M8bvVYRjTP25wZs8', desc: 'The Net Ninja Playlist', image: 'https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=800&auto=format&fit=crop' }
+            { title: 'Flutter & Dart', url: 'https://www.youtube.com/watch?v=VPvVD8t02U8', desc: 'freeCodeCamp Full Course', image: 'https://placehold.co/600x400/0d9488/white?text=Flutter' },
+            { title: 'React Native', url: 'https://www.youtube.com/playlist?list=PL4cUxeGkcC9hL6uk5M8bvVYRjTP25wZs8', desc: 'The Net Ninja Playlist', image: 'https://placehold.co/600x400/0d9488/white?text=React+Native' }
         ]
     },
     {
@@ -95,9 +95,9 @@ const resourceCategories = [
         bg: 'bg-violet-50',
         desc: 'DSA, AI/ML',
         items: [
-            { title: 'CS50', url: 'https://cs50.harvard.edu', desc: 'Harvard\'s Full CS Course', image: 'https://images.unsplash.com/photo-1623479322729-28b25c16b011?q=80&w=800&auto=format&fit=crop' },
-            { title: 'Machine Learning', url: 'https://www.coursera.org/learn/machine-learning', desc: 'Andrew Ng (Audit Free)', image: 'https://images.unsplash.com/photo-1555255707-c07966088b7b?q=80&w=800&auto=format&fit=crop' },
-            { title: 'Data Structures', url: 'https://www.freecodecamp.org/learn', desc: 'JS / Python DSA', image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=800&auto=format&fit=crop' }
+            { title: 'CS50', url: 'https://cs50.harvard.edu', desc: 'Harvard\'s Full CS Course', image: 'https://placehold.co/600x400/7c3aed/white?text=CS50' },
+            { title: 'Machine Learning', url: 'https://www.coursera.org/learn/machine-learning', desc: 'Andrew Ng (Audit Free)', image: 'https://placehold.co/600x400/7c3aed/white?text=Machine+Learning' },
+            { title: 'Data Structures', url: 'https://www.freecodecamp.org/learn', desc: 'JS / Python DSA', image: 'https://placehold.co/600x400/7c3aed/white?text=DSA' }
         ]
     },
     {
@@ -108,9 +108,9 @@ const resourceCategories = [
         bg: 'bg-gray-50',
         desc: 'Git, UX, Security',
         items: [
-            { title: 'Learn Git', url: 'https://www.codecademy.com/learn/learn-git', desc: 'Version Control Basics', image: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?q=80&w=800&auto=format&fit=crop' },
-            { title: 'Google UX Design', url: 'https://www.coursera.org/professional-certificates/google-ux-design', desc: 'Professional Certificate (Audit)', image: 'https://images.unsplash.com/photo-1586717791821-3f44a5638d0f?q=80&w=800&auto=format&fit=crop' },
-            { title: 'Cybersecurity', url: 'https://www.coursera.org/professional-certificates/google-cybersecurity', desc: 'Google Certificate (Audit)', image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=800&auto=format&fit=crop' }
+            { title: 'Learn Git', url: 'https://www.codecademy.com/learn/learn-git', desc: 'Version Control Basics', image: 'https://placehold.co/600x400/4b5563/white?text=Git' },
+            { title: 'Google UX Design', url: 'https://www.coursera.org/professional-certificates/google-ux-design', desc: 'Professional Certificate (Audit)', image: 'https://placehold.co/600x400/4b5563/white?text=UX+Design' },
+            { title: 'Cybersecurity', url: 'https://www.coursera.org/professional-certificates/google-cybersecurity', desc: 'Google Certificate (Audit)', image: 'https://placehold.co/600x400/4b5563/white?text=Cybersecurity' }
         ]
     }
 ];
@@ -138,8 +138,8 @@ export default function ResourcesPage() {
                             key={cat.id}
                             onClick={() => setSelectedId(cat.id)}
                             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium ${selectedId === cat.id
-                                    ? 'bg-white text-brand-primary shadow-sm ring-1 ring-brand-primary/10'
-                                    : 'text-gray-600 hover:bg-white/60 hover:text-gray-900'
+                                ? 'bg-white text-brand-primary shadow-sm ring-1 ring-brand-primary/10'
+                                : 'text-gray-600 hover:bg-white/60 hover:text-gray-900'
                                 }`}
                         >
                             <cat.icon className={`w-4 h-4 ${cat.color}`} />

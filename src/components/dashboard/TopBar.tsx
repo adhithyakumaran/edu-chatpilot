@@ -1,15 +1,24 @@
 'use client';
 
-import { Bell, MessageSquare, Plus } from 'lucide-react';
+import { Bell, MessageSquare, Plus, Menu } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
-export default function TopBar() {
+interface TopBarProps {
+    onMenuClick?: () => void;
+}
+
+export default function TopBar({ onMenuClick }: TopBarProps) {
     const { user } = useAuth();
     // In a real app we might fetch the full profile here or use a global context
     // For now we'll just show the name and a placeholder/fallback for details if not in context
 
     return (
-        <header className="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 sticky top-0 z-30">
+        <header className="h-20 bg-white border-b border-gray-100 flex items-center gap-4 px-6 sticky top-0 z-30 justify-between">
+            {/* Hamburger (Mobile Only) */}
+            <button onClick={onMenuClick} className="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                <Menu className="w-6 h-6" />
+            </button>
+
             {/* User Info (Moved from Welcome Card) */}
             <div className="flex flex-col justify-center">
                 <h2 className="text-xl font-bold text-gray-900 leading-tight">
