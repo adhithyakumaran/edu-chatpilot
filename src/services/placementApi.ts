@@ -3,6 +3,7 @@ import axios from 'axios';
 // export const API_URL = 'https://chatpilot-server-main.onrender.com/api';
 const isProd = process.env.NODE_ENV === 'production';
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || (isProd ? 'https://edu-chatpilot-backend.onrender.com/api' : 'http://localhost:5000/api');
+// export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 export const getDashboardData = async (userId: string) => {
     try {
@@ -67,6 +68,16 @@ export const createCourse = async (courseData: any) => {
     }
 };
 
+export const deleteCourse = async (courseId: string) => {
+    try {
+        const response = await axios.delete(`${API_URL}/courses/${courseId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting course:', error);
+        throw error;
+    }
+};
+
 // Notification APIs
 export const getNotifications = async () => {
     try {
@@ -84,6 +95,16 @@ export const sendNotification = async (notificationData: any) => {
         return response.data;
     } catch (error) {
         console.error('Error sending notification:', error);
+        throw error;
+    }
+};
+
+export const deleteMentorMessage = async (messageId: string) => {
+    try {
+        const response = await axios.delete(`${API_URL}/mentor/${messageId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting message:', error);
         throw error;
     }
 };

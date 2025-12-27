@@ -1,18 +1,45 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createCourse, sendNotification } from '@/services/placementApi';
+import { createCourse, sendNotification, getCourses, deleteCourse, deleteMentorMessage } from '@/services/placementApi';
 import { toast } from 'sonner';
-import { LayoutDashboard, Plus, Loader2, MessageSquare, BookOpen, X, Users, MessageCircle } from 'lucide-react';
+import { LayoutDashboard, Plus, Loader2, BookOpen, X, Users, MessageCircle, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 
 // --- SUB-COMPONENTS ---
 
 function CreateCourseModal({ onClose }: { onClose: () => void }) {
     const [loading, setLoading] = useState(false);
+    const [courses, setCourses] = useState<any[]>([]);
     const [formData, setFormData] = useState({
         title: '', description: '', instructor: '', duration: '', image: '', tags: '', rating: 5.0
     });
+
+    useEffect(() => {
+        loadCourses();
+    }, []);
+
+    const loadCourses = async () => {
+        try {
+            const data = await getCourses();
+            setCourses(data);
+        } catch (e) {
+            console.error("Failed to load courses");
+        }
+    };
+
+    const handleDelete = async (id: string, e: React.MouseEvent) => {
+        e.stopPropagation(); // prevent triggering parent clicks if any
+        if (!confirm("Are you sure you want to delete this course?")) return;
+
+        try {
+            await deleteCourse(id);
+            toast.success("Course deleted");
+            loadCourses(); // reload list
+        } catch (error) {
+            toast.error("Failed to delete course");
+        }
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -21,7 +48,9 @@ function CreateCourseModal({ onClose }: { onClose: () => void }) {
             const tagsArray = formData.tags.split(',').map(t => t.trim()).filter(t => t);
             await createCourse({ ...formData, tags: tagsArray });
             toast.success("Course created successfully!");
-            onClose();
+            // Reset form but don't close, user might want to add more
+            setFormData({ title: '', description: '', instructor: '', duration: '', image: '', tags: '', rating: 5.0 });
+            loadCourses();
         } catch (error) {
             toast.error("Failed to create course.");
         } finally {
@@ -31,52 +60,88 @@ function CreateCourseModal({ onClose }: { onClose: () => void }) {
 
     return (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
-                <div className="p-6 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white z-10">
+            <div className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
+                <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white z-10">
                     <h2 className="text-xl font-bold flex items-center gap-2">
-                        <Plus className="w-5 h-5 text-brand-primary" /> Create New Course
+                        <BookOpen className="w-5 h-5 text-brand-primary" /> Manage Courses
                     </h2>
                     <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors"><X className="w-5 h-5" /></button>
                 </div>
-                <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="col-span-2">
-                            <label className="text-xs font-bold text-gray-500 uppercase">Title</label>
-                            <input required className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
-                                value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} placeholder="e.g. Advanced React" />
-                        </div>
-                        <div className="col-span-2">
-                            <label className="text-xs font-bold text-gray-500 uppercase">Description</label>
-                            <textarea required rows={3} className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
-                                value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} placeholder="Course overview..." />
-                        </div>
-                        <div>
-                            <label className="text-xs font-bold text-gray-500 uppercase">Instructor</label>
-                            <input required className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
-                                value={formData.instructor} onChange={e => setFormData({ ...formData, instructor: e.target.value })} placeholder="Name" />
-                        </div>
-                        <div>
-                            <label className="text-xs font-bold text-gray-500 uppercase">Duration</label>
-                            <input required className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
-                                value={formData.duration} onChange={e => setFormData({ ...formData, duration: e.target.value })} placeholder="e.g. 10h" />
-                        </div>
-                        <div className="col-span-2">
-                            <label className="text-xs font-bold text-gray-500 uppercase">Cover Image</label>
-                            <input className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
-                                value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} placeholder="https://..." />
-                        </div>
-                        <div className="col-span-2">
-                            <label className="text-xs font-bold text-gray-500 uppercase">Tags</label>
-                            <input className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
-                                value={formData.tags} onChange={e => setFormData({ ...formData, tags: e.target.value })} placeholder="Comma separated" />
+
+                <div className="flex-1 overflow-y-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Create Form */}
+                    <div className="space-y-4">
+                        <h3 className="font-bold text-gray-700">Add New Course</h3>
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div>
+                                <label className="text-xs font-bold text-gray-500 uppercase">Title</label>
+                                <input required className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
+                                    value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} placeholder="e.g. Advanced React" />
+                            </div>
+                            <div>
+                                <label className="text-xs font-bold text-gray-500 uppercase">Description</label>
+                                <textarea required rows={2} className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
+                                    value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} placeholder="Course overview..." />
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="text-xs font-bold text-gray-500 uppercase">Instructor</label>
+                                    <input required className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
+                                        value={formData.instructor} onChange={e => setFormData({ ...formData, instructor: e.target.value })} placeholder="Name" />
+                                </div>
+                                <div>
+                                    <label className="text-xs font-bold text-gray-500 uppercase">Duration</label>
+                                    <input required className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
+                                        value={formData.duration} onChange={e => setFormData({ ...formData, duration: e.target.value })} placeholder="e.g. 10h" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="text-xs font-bold text-gray-500 uppercase">Cover Image</label>
+                                <input className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
+                                    value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} placeholder="https://..." />
+                            </div>
+                            <div>
+                                <label className="text-xs font-bold text-gray-500 uppercase">Tags</label>
+                                <input className="w-full mt-1 p-3 border rounded-xl outline-none focus:ring-2 focus:ring-brand-primary/20"
+                                    value={formData.tags} onChange={e => setFormData({ ...formData, tags: e.target.value })} placeholder="Comma separated" />
+                            </div>
+
+                            <button disabled={loading} className="w-full bg-brand-primary text-white py-3 rounded-xl font-bold hover:bg-violet-700 transition-colors disabled:opacity-50 mt-4">
+                                {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Create Course'}
+                            </button>
+                        </form>
+                    </div>
+
+                    {/* Existing Courses List */}
+                    <div className="border-l border-gray-100 pl-8 space-y-4">
+                        <h3 className="font-bold text-gray-700">Existing Courses ({courses.length})</h3>
+                        <div className="space-y-3 h-[500px] overflow-y-auto pr-2">
+                            {courses.map(course => (
+                                <div key={course.id} className="flex gap-3 p-3 border border-gray-100 rounded-xl hover:shadow-md transition-all bg-white group">
+                                    <img src={course.image} alt={course.title} className="w-16 h-16 rounded-lg object-cover bg-gray-100" />
+                                    <div className="flex-1 min-w-0">
+                                        <h4 className="font-bold text-gray-900 text-sm truncate">{course.title}</h4>
+                                        <p className="text-xs text-gray-500 truncate">{course.instructor} • {course.duration}</p>
+                                        <div className="flex gap-1 mt-1 flex-wrap">
+                                            {course.tags?.map((tag: string) => (
+                                                <span key={tag} className="text-[10px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-600">{tag}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={(e) => handleDelete(course.id, e)}
+                                        className="self-start p-2 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                        title="Delete Course API"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            ))}
+                            {courses.length === 0 && <p className="text-sm text-gray-400 italic">No courses found.</p>}
                         </div>
                     </div>
-                    <div className="pt-4">
-                        <button disabled={loading} className="w-full bg-brand-primary text-white py-3 rounded-xl font-bold hover:bg-violet-700 transition-colors disabled:opacity-50">
-                            {loading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Create Course'}
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     );
@@ -133,8 +198,6 @@ function MentorInboxModal({ onClose }: { onClose: () => void }) {
     const [messages, setMessages] = useState<any[]>([]);
     const [reply, setReply] = useState('');
 
-    // Fetch logic omitted for brevity in this replace_block, would be same as before but inside modal
-    // Keeping it simple with mock data structure capability or re-implementing fetch
     useEffect(() => {
         // Fetch Inbox on mount
         fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://edu-chatpilot-backend.onrender.com/api'}/mentor/admin/inbox`)
@@ -162,6 +225,17 @@ function MentorInboxModal({ onClose }: { onClose: () => void }) {
         setMessages(p => [...p, { id: Date.now(), message: reply, sender: 'ADMIN', createdAt: new Date() }]);
     };
 
+    const handleDeleteMessage = async (msgId: string) => {
+        if (!confirm("Delete this message?")) return;
+        try {
+            await deleteMentorMessage(msgId);
+            setMessages(prev => prev.filter(m => m.id !== msgId));
+            toast.success("Message deleted");
+        } catch (e) {
+            toast.error("Failed to delete");
+        }
+    };
+
     return (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-white rounded-2xl w-full max-w-4xl h-[600px] shadow-2xl flex overflow-hidden">
@@ -186,9 +260,16 @@ function MentorInboxModal({ onClose }: { onClose: () => void }) {
                             <div className="p-4 border-b border-gray-100 font-bold bg-white">Chat History</div>
                             <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-gray-50/50">
                                 {messages.map((msg: any) => (
-                                    <div key={msg.id} className={`flex ${msg.sender === 'ADMIN' ? 'justify-end' : 'justify-start'}`}>
-                                        <div className={`p-3 rounded-xl text-sm max-w-[80%] ${msg.sender === 'ADMIN' ? 'bg-brand-primary text-white' : 'bg-white border text-gray-800'}`}>
+                                    <div key={msg.id} className={`flex ${msg.sender === 'ADMIN' ? 'justify-end' : 'justify-start'} group/msg`}>
+                                        <div className={`p-3 rounded-xl text-sm max-w-[80%] relative group-hover/msg:pr-8 transition-all ${msg.sender === 'ADMIN' ? 'bg-brand-primary text-white' : 'bg-white border text-gray-800'}`}>
                                             {msg.message}
+                                            <button
+                                                onClick={() => handleDeleteMessage(msg.id)}
+                                                className={`absolute top-1/2 -translate-y-1/2 opacity-0 group-hover/msg:opacity-100 p-1 hover:bg-black/10 rounded transition-all ${msg.sender === 'ADMIN' ? 'right-1 text-white' : 'right-1 text-gray-500'}`}
+                                                title="Delete Message"
+                                            >
+                                                <Trash2 className="w-3 h-3" />
+                                            </button>
                                         </div>
                                     </div>
                                 ))}
@@ -216,8 +297,8 @@ export default function AdminPage() {
     const cards = [
         {
             id: 'create',
-            title: 'Create Course',
-            desc: 'Add new learning material',
+            title: 'Manage Courses',
+            desc: 'Create and remove courses',
             icon: BookOpen,
             color: 'text-violet-600',
             bg: 'bg-violet-100',
