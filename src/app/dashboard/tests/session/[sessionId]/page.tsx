@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { TestEngine, ActiveTestSession } from '@/utils/testEngine';
 import { Problem } from '@/data/problemBank';
@@ -9,8 +9,8 @@ import Editor from '@monaco-editor/react';
 import { toast } from 'sonner';
 import axios from 'axios';
 
-export default function TestSessionPage({ params }: { params: Promise<{ sessionId: string }> }) {
-    const { sessionId } = use(params);
+export default function TestSessionPage({ params }: { params: { sessionId: string } }) {
+    const { sessionId } = params;
     const router = useRouter();
 
     // Test State

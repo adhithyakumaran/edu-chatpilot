@@ -1,13 +1,13 @@
 'use client';
 
-import { use, useState } from 'react';
+import { useState } from 'react';
 import {
     BookOpen, User, MessageSquare, ChevronDown, ChevronRight,
     Clock, Award, PlayCircle, CheckCircle2, Circle
 } from 'lucide-react';
 
-export default function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = use(params);
+export default function CourseDetailPage({ params }: { params: { id: string } }) {
+    const { id } = params;
 
     // Mock data - replace with API call
     const courseData = {
