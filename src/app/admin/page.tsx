@@ -128,6 +128,7 @@ function CreateCourseModal({ onClose }: { onClose: () => void }) {
                                             {course.tags?.map((tag: string) => (
                                                 <span key={tag} className="text-[10px] bg-gray-100 px-1.5 py-0.5 rounded text-gray-600">{tag}</span>
                                             ))}
+                                            <div className="w-full text-[10px] text-gray-400 font-mono mt-1 select-all hover:text-brand-primary">ID: {course.id}</div>
                                         </div>
                                     </div>
                                     <button
