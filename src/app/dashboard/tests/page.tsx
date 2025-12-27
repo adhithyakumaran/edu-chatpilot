@@ -134,9 +134,9 @@ export default function TestsPage() {
                     {blueprints.map((test, index) => (
                         <div
                             key={test.id}
-                            className={`group relative bg-white border rounded-xl p-6 transition-all hover:shadow-md border-brand-primary/20 ring-1 ring-brand-primary/10`}
+                            className={`group relative bg-white border rounded-xl p-4 md:p-6 transition-all hover:shadow-md border-brand-primary/20 ring-1 ring-brand-primary/10`}
                         >
-                            <div className="flex items-start justify-between">
+                            <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                                 <div className="space-y-1">
                                     <div className="flex items-center gap-2">
                                         <h3 className="font-bold text-gray-900 text-lg">{test.name}</h3>
@@ -144,7 +144,7 @@ export default function TestsPage() {
                                     </div>
                                     <p className="text-gray-600 text-sm max-w-2xl">{test.description}</p>
 
-                                    <div className="flex items-center gap-4 mt-3 text-sm text-gray-500">
+                                    <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-gray-500">
                                         <div className="flex items-center gap-1.5">
                                             <Clock className="w-4 h-4" />
                                             <span>{test.duration} mins</span>
@@ -163,7 +163,7 @@ export default function TestsPage() {
                                 <button
                                     onClick={() => handleStartTest(test.id)}
                                     disabled={loadingTestId === test.id}
-                                    className="px-6 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all bg-brand-primary text-white hover:bg-violet-700 shadow-sm hover:shadow-md"
+                                    className="w-full md:w-auto px-6 py-2.5 rounded-lg font-bold flex items-center justify-center gap-2 transition-all bg-brand-primary text-white hover:bg-violet-700 shadow-sm hover:shadow-md"
                                 >
                                     {loadingTestId === test.id ? (
                                         <>

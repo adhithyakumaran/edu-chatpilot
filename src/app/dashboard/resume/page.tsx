@@ -17,13 +17,13 @@ type SectionTab = 'personal' | 'skills' | 'experience' | 'projects' | 'education
 const SideNavItem = ({ id, label, icon: Icon, active, onClick }: any) => (
     <button
         onClick={() => onClick(id)}
-        className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all w-full text-left ${active
+        className={`flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 md:py-3 rounded-xl font-medium transition-all w-auto md:w-full text-left whitespace-nowrap ${active
             ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/25'
-            : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+            : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 border border-transparent hover:border-gray-200'
             }`}
     >
-        <Icon className="w-5 h-5 shrink-0" />
-        <span className="text-sm">{label}</span>
+        <Icon className="w-4 h-4 md:w-5 md:h-5 shrink-0" />
+        <span className="text-xs md:text-sm">{label}</span>
     </button>
 );
 
@@ -80,29 +80,34 @@ export default function PremiumResumeBuilder() {
     };
 
     return (
-        <div className="flex h-full w-full bg-gray-50/50">
-            {/* Left Sidebar Navigation */}
-            <aside className="w-64 bg-white border-r border-gray-200 p-6 flex flex-col gap-2 overflow-y-auto shrink-0">
-                <div className="mb-4">
-                    <h2 className="text-lg font-bold text-gray-900 mb-1">Resume Builder</h2>
-                    <p className="text-xs text-gray-500">Build your ATS-ready resume</p>
+
+        <div className="flex flex-col md:flex-row h-full w-full bg-gray-50/50">
+            {/* Left Sidebar Navigation (Horizontal on Mobile, Vertical on Desktop) */}
+            <aside className="w-full md:w-64 bg-white border-b md:border-b-0 md:border-r border-gray-200 p-4 md:p-6 flex flex-row md:flex-col gap-2 overflow-x-auto md:overflow-y-auto shrink-0 no-scrollbar">
+                <div className="mb-0 md:mb-4 shrink-0 flex items-center md:block gap-2 px-2 md:px-0">
+                    <h2 className="text-lg font-bold text-gray-900 mb-0 md:mb-1 whitespace-nowrap">Resume Builder</h2>
+                    <p className="text-xs text-gray-500 hidden md:block">Build your ATS-ready resume</p>
                 </div>
 
-                <SideNavItem id="personal" label="Personal Info" icon={User} active={activeTab === 'personal'} onClick={setActiveTab} />
-                <SideNavItem id="skills" label="Technical Skills" icon={Code} active={activeTab === 'skills'} onClick={setActiveTab} />
-                <SideNavItem id="experience" label="Experience" icon={Briefcase} active={activeTab === 'experience'} onClick={setActiveTab} />
-                <SideNavItem id="projects" label="Projects" icon={FolderGit2} active={activeTab === 'projects'} onClick={setActiveTab} />
-                <SideNavItem id="education" label="Education" icon={GraduationCap} active={activeTab === 'education'} onClick={setActiveTab} />
-                <SideNavItem id="achievements" label="Achievements" icon={Award} active={activeTab === 'achievements'} onClick={setActiveTab} />
-                <SideNavItem id="languages" label="Languages Known" icon={User} active={activeTab === 'languages'} onClick={setActiveTab} />
+                <div className="flex flex-row md:flex-col gap-2 pr-4 md:pr-0">
+                    <SideNavItem id="personal" label="Personal" icon={User} active={activeTab === 'personal'} onClick={setActiveTab} />
+                    <SideNavItem id="skills" label="Skills" icon={Code} active={activeTab === 'skills'} onClick={setActiveTab} />
+                    <SideNavItem id="experience" label="Experience" icon={Briefcase} active={activeTab === 'experience'} onClick={setActiveTab} />
+                    <SideNavItem id="projects" label="Projects" icon={FolderGit2} active={activeTab === 'projects'} onClick={setActiveTab} />
+                    <SideNavItem id="education" label="Education" icon={GraduationCap} active={activeTab === 'education'} onClick={setActiveTab} />
+                    <SideNavItem id="achievements" label="Awards" icon={Award} active={activeTab === 'achievements'} onClick={setActiveTab} />
+                    <SideNavItem id="languages" label="Language" icon={User} active={activeTab === 'languages'} onClick={setActiveTab} />
+                </div>
 
-                <div className="h-px bg-gray-200 my-2"></div>
+                <div className="w-px h-8 md:w-full md:h-px bg-gray-200 mx-2 md:my-2 shrink-0"></div>
 
-                <SideNavItem id="keywords" label="ATS Keywords" icon={Search} active={activeTab === 'keywords'} onClick={setActiveTab} />
-                <SideNavItem id="preview" label="Preview & Export" icon={Eye} active={activeTab === 'preview'} onClick={setActiveTab} />
+                <div className="flex flex-row md:flex-col gap-2">
+                    <SideNavItem id="keywords" label="ATS" icon={Search} active={activeTab === 'keywords'} onClick={setActiveTab} />
+                    <SideNavItem id="preview" label="Preview" icon={Eye} active={activeTab === 'preview'} onClick={setActiveTab} />
+                </div>
 
                 {/* ATS Score Badge */}
-                <div className="mt-auto pt-4 border-t border-gray-200">
+                <div className="hidden md:block mt-auto pt-4 border-t border-gray-200">
                     <div className="bg-green-50 text-green-700 px-4 py-3 rounded-xl font-bold text-sm flex items-center gap-2 border border-green-200">
                         <CheckCircle2 className="w-5 h-5" />
                         <div>
@@ -300,121 +305,123 @@ export default function PremiumResumeBuilder() {
                             </button>
                         </div>
 
-                        <div id="resume-preview" className="bg-white w-[210mm] min-h-[297mm] shadow-2xl p-[20mm] text-gray-900 font-serif relative">
-                            {/* Header */}
-                            <header className="text-center border-b-2 border-gray-900 pb-4 mb-4">
-                                <h1 className="text-3xl font-bold uppercase tracking-wide mb-2">{resumeData.personal.fullName || 'YOUR NAME'}</h1>
-                                <div className="flex flex-wrap justify-center gap-3 text-sm">
-                                    {resumeData.personal.phone && <span>Phone: {resumeData.personal.phone}</span>}
-                                    {resumeData.personal.email && <span>• Email: {resumeData.personal.email}</span>}
-                                    {resumeData.personal.city && <span>• {resumeData.personal.city}</span>}
-                                    {resumeData.personal.linkedin && <span>• LinkedIn: {resumeData.personal.linkedin}</span>}
-                                    {resumeData.personal.github && <span>• GitHub: {resumeData.personal.github}</span>}
-                                    {resumeData.personal.portfolio && <span>• Portfolio: {resumeData.personal.portfolio}</span>}
-                                </div>
-                            </header>
-
-                            {/* Education */}
-                            {resumeData.education.some(e => e.college || e.degree) && (
-                                <div className="mb-6">
-                                    <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Education</h2>
-                                    {resumeData.education.filter(e => e.college || e.degree).map(edu => (
-                                        <div key={edu.id} className="mb-3">
-                                            <div className="flex justify-between font-bold text-sm">
-                                                <span>{edu.college}</span>
-                                                {edu.year && <span className="font-normal">{edu.year}</span>}
-                                            </div>
-                                            <div className="text-sm">
-                                                {edu.degree} {edu.branch && `in ${edu.branch}`}
-                                                {edu.cgpa && <span className="ml-2">| CGPA: {edu.cgpa}</span>}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-
-                            {/* Technical Skills */}
-                            {(resumeData.skills.languages || resumeData.skills.frameworks || resumeData.skills.tools || resumeData.skills.databases) && (
-                                <div className="mb-6">
-                                    <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Technical Skills</h2>
-                                    <div className="text-sm space-y-1.5">
-                                        {resumeData.skills.languages && <div className="flex"><span className="font-bold w-40 shrink-0">Languages:</span> <span>{resumeData.skills.languages}</span></div>}
-                                        {resumeData.skills.frameworks && <div className="flex"><span className="font-bold w-40 shrink-0">Frameworks:</span> <span>{resumeData.skills.frameworks}</span></div>}
-                                        {resumeData.skills.tools && <div className="flex"><span className="font-bold w-40 shrink-0">Tools:</span> <span>{resumeData.skills.tools}</span></div>}
-                                        {resumeData.skills.databases && <div className="flex"><span className="font-bold w-40 shrink-0">Databases:</span> <span>{resumeData.skills.databases}</span></div>}
+                        <div className="w-full overflow-x-auto pb-8 px-4 md:px-0">
+                            <div id="resume-preview" className="bg-white min-w-[210mm] w-[210mm] min-h-[297mm] shadow-2xl p-[20mm] text-gray-900 font-serif relative mx-auto">
+                                {/* Header */}
+                                <header className="text-center border-b-2 border-gray-900 pb-4 mb-4">
+                                    <h1 className="text-3xl font-bold uppercase tracking-wide mb-2">{resumeData.personal.fullName || 'YOUR NAME'}</h1>
+                                    <div className="flex flex-wrap justify-center gap-3 text-sm">
+                                        {resumeData.personal.phone && <span>Phone: {resumeData.personal.phone}</span>}
+                                        {resumeData.personal.email && <span>• Email: {resumeData.personal.email}</span>}
+                                        {resumeData.personal.city && <span>• {resumeData.personal.city}</span>}
+                                        {resumeData.personal.linkedin && <span>• LinkedIn: {resumeData.personal.linkedin}</span>}
+                                        {resumeData.personal.github && <span>• GitHub: {resumeData.personal.github}</span>}
+                                        {resumeData.personal.portfolio && <span>• Portfolio: {resumeData.personal.portfolio}</span>}
                                     </div>
-                                </div>
-                            )}
+                                </header>
 
-                            {/* Work Experience */}
-                            {resumeData.experience.some(e => e.company || e.role) && (
-                                <div className="mb-6">
-                                    <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Work Experience</h2>
-                                    {resumeData.experience.filter(e => e.company || e.role).map(exp => (
-                                        <div key={exp.id} className="mb-4">
-                                            <div className="flex justify-between font-bold text-sm">
-                                                <span>{exp.role || 'Position'}</span>
-                                                {(exp.startDate || exp.endDate) && (
-                                                    <span className="font-normal">
-                                                        {exp.startDate && new Date(exp.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-                                                        {exp.startDate && exp.endDate && ' - '}
-                                                        {exp.endDate ? new Date(exp.endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : exp.startDate ? 'Present' : ''}
-                                                    </span>
-                                                )}
+                                {/* Education */}
+                                {resumeData.education.some(e => e.college || e.degree) && (
+                                    <div className="mb-6">
+                                        <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Education</h2>
+                                        {resumeData.education.filter(e => e.college || e.degree).map(edu => (
+                                            <div key={edu.id} className="mb-3">
+                                                <div className="flex justify-between font-bold text-sm">
+                                                    <span>{edu.college}</span>
+                                                    {edu.year && <span className="font-normal">{edu.year}</span>}
+                                                </div>
+                                                <div className="text-sm">
+                                                    {edu.degree} {edu.branch && `in ${edu.branch}`}
+                                                    {edu.cgpa && <span className="ml-2">| CGPA: {edu.cgpa}</span>}
+                                                </div>
                                             </div>
-                                            {exp.company && <div className="text-sm italic mb-1 text-gray-700">{exp.company}</div>}
-                                            {exp.description && (
-                                                <div className="text-sm leading-relaxed whitespace-pre-line">{exp.description}</div>
-                                            )}
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-
-                            {/* Projects */}
-                            {resumeData.projects.some(p => p.name) && (
-                                <div className="mb-6">
-                                    <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Projects</h2>
-                                    {resumeData.projects.filter(p => p.name).map(proj => (
-                                        <div key={proj.id} className="mb-4">
-                                            <div className="flex justify-between font-bold text-sm">
-                                                <span>{proj.name}</span>
-                                                {proj.github && <span className="font-normal text-xs">GitHub</span>}
-                                            </div>
-                                            {proj.stack && <div className="text-sm italic mb-1 text-gray-700">Tech Stack: {proj.stack}</div>}
-                                            {proj.description && <p className="text-sm leading-relaxed">{proj.description}</p>}
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-
-                            {/* Achievements & Certifications */}
-                            {resumeData.achievements.some(a => a.title) && (
-                                <div className="mb-6">
-                                    <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Achievements & Certifications</h2>
-                                    {resumeData.achievements.filter(a => a.title).map(ach => (
-                                        <div key={ach.id} className="mb-2">
-                                            <div className="font-bold text-sm">{ach.title}</div>
-                                            {ach.description && <p className="text-sm text-gray-700">{ach.description}</p>}
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-
-                            {/* Languages Known */}
-                            {resumeData.languages.some(l => l.name) && (
-                                <div className="mb-6">
-                                    <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Languages</h2>
-                                    <div className="text-sm">
-                                        {resumeData.languages.filter(l => l.name).map((lang, idx) => (
-                                            <span key={lang.id}>
-                                                {lang.name} ({lang.proficiency})
-                                                {idx < resumeData.languages.filter(l => l.name).length - 1 && ', '}
-                                            </span>
                                         ))}
                                     </div>
-                                </div>
-                            )}
+                                )}
+
+                                {/* Technical Skills */}
+                                {(resumeData.skills.languages || resumeData.skills.frameworks || resumeData.skills.tools || resumeData.skills.databases) && (
+                                    <div className="mb-6">
+                                        <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Technical Skills</h2>
+                                        <div className="text-sm space-y-1.5">
+                                            {resumeData.skills.languages && <div className="flex"><span className="font-bold w-40 shrink-0">Languages:</span> <span>{resumeData.skills.languages}</span></div>}
+                                            {resumeData.skills.frameworks && <div className="flex"><span className="font-bold w-40 shrink-0">Frameworks:</span> <span>{resumeData.skills.frameworks}</span></div>}
+                                            {resumeData.skills.tools && <div className="flex"><span className="font-bold w-40 shrink-0">Tools:</span> <span>{resumeData.skills.tools}</span></div>}
+                                            {resumeData.skills.databases && <div className="flex"><span className="font-bold w-40 shrink-0">Databases:</span> <span>{resumeData.skills.databases}</span></div>}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Work Experience */}
+                                {resumeData.experience.some(e => e.company || e.role) && (
+                                    <div className="mb-6">
+                                        <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Work Experience</h2>
+                                        {resumeData.experience.filter(e => e.company || e.role).map(exp => (
+                                            <div key={exp.id} className="mb-4">
+                                                <div className="flex justify-between font-bold text-sm">
+                                                    <span>{exp.role || 'Position'}</span>
+                                                    {(exp.startDate || exp.endDate) && (
+                                                        <span className="font-normal">
+                                                            {exp.startDate && new Date(exp.startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                                                            {exp.startDate && exp.endDate && ' - '}
+                                                            {exp.endDate ? new Date(exp.endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : exp.startDate ? 'Present' : ''}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                {exp.company && <div className="text-sm italic mb-1 text-gray-700">{exp.company}</div>}
+                                                {exp.description && (
+                                                    <div className="text-sm leading-relaxed whitespace-pre-line">{exp.description}</div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* Projects */}
+                                {resumeData.projects.some(p => p.name) && (
+                                    <div className="mb-6">
+                                        <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Projects</h2>
+                                        {resumeData.projects.filter(p => p.name).map(proj => (
+                                            <div key={proj.id} className="mb-4">
+                                                <div className="flex justify-between font-bold text-sm">
+                                                    <span>{proj.name}</span>
+                                                    {proj.github && <span className="font-normal text-xs">GitHub</span>}
+                                                </div>
+                                                {proj.stack && <div className="text-sm italic mb-1 text-gray-700">Tech Stack: {proj.stack}</div>}
+                                                {proj.description && <p className="text-sm leading-relaxed">{proj.description}</p>}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* Achievements & Certifications */}
+                                {resumeData.achievements.some(a => a.title) && (
+                                    <div className="mb-6">
+                                        <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Achievements & Certifications</h2>
+                                        {resumeData.achievements.filter(a => a.title).map(ach => (
+                                            <div key={ach.id} className="mb-2">
+                                                <div className="font-bold text-sm">{ach.title}</div>
+                                                {ach.description && <p className="text-sm text-gray-700">{ach.description}</p>}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* Languages Known */}
+                                {resumeData.languages.some(l => l.name) && (
+                                    <div className="mb-6">
+                                        <h2 className="text-base font-bold uppercase border-b border-gray-300 mb-3 tracking-wider">Languages</h2>
+                                        <div className="text-sm">
+                                            {resumeData.languages.filter(l => l.name).map((lang, idx) => (
+                                                <span key={lang.id}>
+                                                    {lang.name} ({lang.proficiency})
+                                                    {idx < resumeData.languages.filter(l => l.name).length - 1 && ', '}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 )}

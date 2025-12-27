@@ -107,14 +107,15 @@ export default function MentorChatPage() {
     };
 
     return (
-        <div className="h-[calc(100vh-100px)] grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 h-[calc(100vh-140px)] lg:h-[calc(100vh-100px)]">
 
             {/* Left Column: Chat Interface (8 Cols) */}
-            <div className="lg:col-span-8 flex flex-col h-full">
+            <div className="lg:col-span-8 flex flex-col h-full min-h-0">
                 {isSessionActive ? (
                     <div className="flex-1 flex flex-col bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden animate-in fade-in zoom-in duration-300">
                         {/* Active Session Header */}
-                        <div className="p-4 border-b border-gray-100 bg-white flex items-center justify-between">
+                        <div className="p-4 border-b border-gray-100 bg-white flex items-center justify-between shrink-0">
                             <div className="flex items-center gap-3">
                                 <div className="relative">
                                     <div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center animate-pulse">
@@ -131,12 +132,12 @@ export default function MentorChatPage() {
                                 onClick={handleCloseSession}
                                 className="text-xs font-bold text-red-500 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-2 border border-red-100"
                             >
-                                <XCircle className="w-4 h-4" /> End Session
+                                <XCircle className="w-4 h-4" /> End
                             </button>
                         </div>
 
                         {/* Chat Area */}
-                        <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50/50">
+                        <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 bg-gray-50/50">
                             {messages.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center h-full text-center p-8 opacity-60">
                                     <MessageSquare className="w-12 h-12 text-brand-primary mb-3" />
@@ -147,7 +148,7 @@ export default function MentorChatPage() {
                                 messages.map((msg) => (
                                     <div key={msg.id} className={`flex ${msg.sender === 'USER' ? 'justify-end' : 'justify-start'}`}>
                                         <div className={`
-                                            max-w-[70%] p-3 rounded-2xl text-sm shadow-sm
+                                            max-w-[85%] md:max-w-[70%] p-3 rounded-2xl text-sm shadow-sm
                                             ${msg.sender === 'USER'
                                                 ? 'bg-brand-primary text-white rounded-tr-none'
                                                 : 'bg-white border border-gray-100 text-gray-800 rounded-tl-none'}
@@ -163,7 +164,7 @@ export default function MentorChatPage() {
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-4 bg-white border-t border-gray-100">
+                        <div className="p-3 md:p-4 bg-white border-t border-gray-100 shrink-0">
                             <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="flex items-center gap-2">
                                 <input
                                     type="text"
@@ -171,7 +172,7 @@ export default function MentorChatPage() {
                                     onChange={(e) => setInput(e.target.value)}
                                     placeholder="Type your doubt here..."
                                     className="flex-1 px-4 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-brand-primary/20 outline-none text-gray-700 hover:bg-white transition-colors border-2 hover:border-gray-100"
-                                    autoFocus
+                                    autoFocus // Keep autofocus for desktop, mobile might be annoying but okay for chat apps
                                 />
                                 <button
                                     type="submit"
@@ -206,9 +207,9 @@ export default function MentorChatPage() {
                 )}
             </div>
 
-            {/* Right Column: Doubt History (4 Cols) */}
-            <div className="lg:col-span-4 h-full flex flex-col bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-                <div className="p-4 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
+            {/* Right Column: Doubt History (4 Cols) - Hidden on Mobile */}
+            <div className="hidden lg:col-span-4 lg:flex flex-col bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden h-full min-h-0">
+                <div className="p-4 border-b border-gray-100 bg-gray-50 flex items-center justify-between shrink-0">
                     <h2 className="font-bold text-gray-900 flex items-center gap-2">
                         <History className="w-4 h-4 text-gray-500" /> Doubt History
                     </h2>

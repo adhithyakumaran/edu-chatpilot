@@ -14,7 +14,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
             {/* Main Content Area */}
             <main className="flex-1 md:ml-64 bg-gray-50 min-h-screen flex flex-col w-full">
-                <TopBar onMenuClick={() => setSidebarOpen(true)} />
                 <div className="p-4 md:p-8 flex-1 overflow-x-hidden overflow-y-auto">
                     {children}
                 </div>
