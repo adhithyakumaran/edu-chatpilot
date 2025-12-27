@@ -29,7 +29,7 @@ export const blueprints: TestBlueprint[] = [
         passScore: 60,
         sections: [
             { title: "Aptitude MCQs", type: "aptitude", count: 20 },
-            { title: "DSA Basics MCQs", type: "mcq", count: 10 },
+            { title: "Logical Reasoning", type: "mcq", count: 10 },
             { title: "Coding Challenge", type: "coding", difficulty: "easy", count: 2 }
         ]
     },

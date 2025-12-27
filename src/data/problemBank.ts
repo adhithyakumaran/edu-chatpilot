@@ -122,6 +122,91 @@ export const problemBank: Problem[] = [
         timeLimit: 1
     },
 
+    // --- CODING: MEDIUM / HARD ---
+    {
+        id: "LC_003",
+        title: "Longest Substring Without Repeating Characters",
+        type: "coding",
+        topic: "string",
+        difficulty: "medium",
+        pattern: "sliding_window",
+        company: ["Facebook", "Amazon"],
+        description: "Given a string s, find the length of the longest substring without repeating characters.",
+        testcases: [{ input: "s = 'abcabcbb'", output: "3" }],
+        timeLimit: 1
+    },
+    {
+        id: "LC_200",
+        title: "Number of Islands",
+        type: "coding",
+        topic: "graph",
+        difficulty: "medium",
+        pattern: "bfs",
+        company: ["Amazon", "Microsoft"],
+        description: "Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.",
+        testcases: [],
+        timeLimit: 2
+    },
+    {
+        id: "LC_005",
+        title: "Longest Palindromic Substring",
+        type: "coding",
+        topic: "string",
+        difficulty: "medium",
+        pattern: "dp",
+        company: ["Amazon", "Google"],
+        description: "Given a string s, return the longest palindromic substring in s.",
+        testcases: [{ input: "s = 'babad'", output: "'bab'" }],
+        timeLimit: 2
+    },
+
+    // --- HR QUESTIONS ---
+    {
+        id: "HR_001",
+        title: "Tell me about yourself",
+        type: "hr",
+        topic: "personal",
+        difficulty: "easy",
+        description: "Introduce yourself, highlighting your background, skills, and why you are a good fit for this role.",
+        explanation: "Focus on the 'Present, Past, Future' framework."
+    },
+    {
+        id: "HR_002",
+        title: "Why do you want to join us?",
+        type: "hr",
+        topic: "company",
+        difficulty: "easy",
+        description: "Explain what motivates you about this specific company and role.",
+        explanation: "Mention company values, products, or culture."
+    },
+    {
+        id: "HR_003",
+        title: "Strengths and Weaknesses",
+        type: "hr",
+        topic: "personal",
+        difficulty: "medium",
+        description: "What are your greatest strengths and weaknesses?",
+        explanation: "Frame the weakness as something you are actively working on."
+    },
+    {
+        id: "HR_004",
+        title: "Conflict Resolution",
+        type: "hr",
+        topic: "behavioral",
+        difficulty: "medium",
+        description: "Describe a time you had a conflict with a team member. How did you resolve it?",
+        explanation: "Use the STAR method (Situation, Task, Action, Result)."
+    },
+    {
+        id: "HR_005",
+        title: "Where do you see yourself in 5 years?",
+        type: "hr",
+        topic: "career",
+        difficulty: "medium",
+        description: "Discuss your long-term career goals.",
+        explanation: "Align your goals with the company's growth."
+    },
+
     // --- GENERATED SYLLABUS CONTENT ---
     ...(() => {
         // --- REAL QUESTION GENERATORS ---
