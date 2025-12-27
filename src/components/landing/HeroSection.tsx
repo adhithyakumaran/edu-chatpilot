@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function HeroSection() {
     return (
-        <section className="relative min-h-[95vh] flex items-center bg-white overflow-hidden pt-24 sm:pt-32 pb-16 sm:pb-20">
+        <section className="relative min-h-[95vh] flex items-center bg-white overflow-hidden pt-36 sm:pt-32 pb-16 sm:pb-20">
             {/* Elegant Background Gradients */}
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-brand-secondary/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
