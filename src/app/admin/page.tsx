@@ -36,8 +36,9 @@ function CreateCourseModal({ onClose }: { onClose: () => void }) {
             await deleteCourse(id);
             toast.success("Course deleted");
             loadCourses(); // reload list
-        } catch (error) {
-            toast.error("Failed to delete course");
+        } catch (error: any) {
+            console.error(error);
+            toast.error(error.response?.data?.error || error.message || "Failed to delete course");
         }
     };
 
