@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createCourse, sendNotification, getCourses, deleteCourse, deleteMentorMessage } from '@/services/placementApi';
+import { createCourse, sendNotification, getCourses, deleteCourse, deleteMentorMessage, getStudents } from '@/services/placementApi';
 import { toast } from 'sonner';
 import { LayoutDashboard, Plus, Loader2, BookOpen, X, Users, MessageCircle, Trash2 } from 'lucide-react';
 import Link from 'next/link';
@@ -291,10 +291,64 @@ function MentorInboxModal({ onClose }: { onClose: () => void }) {
     );
 }
 
-// --- MAIN PAGE ---
+function StudentsListModal({ onClose }: { onClose: () => void }) {
+    const [students, setStudents] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        getStudents().then(data => {
+            setStudents(data);
+            setLoading(false);
+        });
+    }, []);
+
+    return (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="bg-white rounded-2xl w-full max-w-4xl h-[600px] shadow-2xl flex flex-col overflow-hidden">
+                <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                    <h2 className="text-xl font-bold flex items-center gap-2">
+                        <Users className="w-5 h-5 text-indigo-600" /> Enrolled Students ({students.length})
+                    </h2>
+                    <button onClick={onClose}><X className="w-5 h-5 text-gray-400 hover:text-gray-600" /></button>
+                </div>
+
+                <div className="flex-1 overflow-y-auto p-6">
+                    {loading ? (
+                        <div className="flex justify-center items-center h-full text-gray-400">Loading...</div>
+                    ) : (
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="border-b border-gray-200 text-xs font-bold text-gray-500 uppercase">
+                                    <th className="py-3 px-4">Name</th>
+                                    <th className="py-3 px-4">Email</th>
+                                    <th className="py-3 px-4">Joined</th>
+                                    <th className="py-3 px-4">Last Login</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {students.map((student, i) => (
+                                    <tr key={student.userId || i} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                                        <td className="py-3 px-4 font-medium text-gray-900">{student.name || 'N/A'}</td>
+                                        <td className="py-3 px-4 text-gray-600">{student.email}</td>
+                                        <td className="py-3 px-4 text-xs text-gray-400">
+                                            {student.createdAt ? new Date(student.createdAt).toLocaleDateString() : '-'}
+                                        </td>
+                                        <td className="py-3 px-4 text-xs text-gray-400">
+                                            {student.lastLogin ? new Date(student.lastLogin).toLocaleDateString() : '-'}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
 
 export default function AdminPage() {
-    const [activeModal, setActiveModal] = useState<'create' | 'blast' | 'mentor' | null>(null);
+    const [activeModal, setActiveModal] = useState<'create' | 'blast' | 'mentor' | 'students' | null>(null);
 
     const cards = [
         {
@@ -323,6 +377,15 @@ export default function AdminPage() {
             color: 'text-emerald-600',
             bg: 'bg-emerald-100',
             action: () => setActiveModal('mentor')
+        },
+        {
+            id: 'students',
+            title: 'Students',
+            desc: 'View enrolled students',
+            icon: Users,
+            color: 'text-indigo-600',
+            bg: 'bg-indigo-100',
+            action: () => setActiveModal('students')
         }
     ];
 
@@ -388,6 +451,7 @@ export default function AdminPage() {
             {activeModal === 'create' && <CreateCourseModal onClose={() => setActiveModal(null)} />}
             {activeModal === 'blast' && <CourseInboxModal onClose={() => setActiveModal(null)} />}
             {activeModal === 'mentor' && <MentorInboxModal onClose={() => setActiveModal(null)} />}
+            {activeModal === 'students' && <StudentsListModal onClose={() => setActiveModal(null)} />}
         </div>
     );
 }

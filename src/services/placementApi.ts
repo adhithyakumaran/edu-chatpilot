@@ -5,6 +5,16 @@ const isProd = process.env.NODE_ENV === 'production';
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || (isProd ? 'https://edu-chatpilot-backend.onrender.com/api' : 'http://localhost:5000/api');
 // export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
+export const getStudents = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/user/admin/all`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching students:', error);
+        return [];
+    }
+};
+
 export const getDashboardData = async (userId: string) => {
     try {
         const response = await axios.get(`${API_URL}/dashboard`, {

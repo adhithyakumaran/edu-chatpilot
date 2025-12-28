@@ -19,14 +19,26 @@ export default function DashboardPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Mobile Detection
+        const checkMobile = () => {
+            if (window.innerWidth < 768) {
+                router.push('/mobile-intro');
+            }
+        };
+
+        // Check on mount
+        checkMobile();
+
+        // Optional: Check on resize (though likely not needed for this flow)
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, [router]);
+
+    useEffect(() => {
         const loadData = async () => {
             if (!user) return;
+            // Removed reliance on getDashboardData return for mobile check to handle it faster above
             const dashboardData = await getDashboardData(user.uid);
-
-            // Check if onboarding is needed (if dashboardData returns a flag or check academic property)
-            // Ideally backend returns this, but for now lets check if academic data is present in the response
-            // We need to update backend dashboard route to return profile info first.
-            // Assumption: dashboardData.profile.academic exists if onboarded.
 
             if (dashboardData) {
                 setData(dashboardData);
@@ -35,8 +47,6 @@ export default function DashboardPage() {
                     return; // Stop execution
                 }
             } else {
-                // Fetch failed (likely user not in DB due to Render wipe)
-                // Redirect to onboarding to recreate profile
                 router.push('/onboarding');
                 return;
             }
