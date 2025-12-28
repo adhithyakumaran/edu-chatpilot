@@ -26,9 +26,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const router = useRouter();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
             setLoading(false);
+
+            // Sync user to backend
+            if (currentUser) {
+                try {
+                    const { saveUserProfile } = await import('@/services/placementApi');
+                    await saveUserProfile({
+                        userId: currentUser.uid,
+                        email: currentUser.email,
+                        name: currentUser.displayName,
+                        photoUrl: currentUser.photoURL,
+                        provider: currentUser.providerData[0]?.providerId || 'unknown'
+                    });
+                } catch (e) {
+                    console.error("Failed to sync user", e);
+                }
+            }
         });
         return () => unsubscribe();
     }, []);

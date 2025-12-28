@@ -294,6 +294,7 @@ function MentorInboxModal({ onClose }: { onClose: () => void }) {
 function StudentsListModal({ onClose }: { onClose: () => void }) {
     const [students, setStudents] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [hideGoogle, setHideGoogle] = useState(false);
 
     useEffect(() => {
         getStudents().then(data => {
@@ -309,7 +310,13 @@ function StudentsListModal({ onClose }: { onClose: () => void }) {
                     <h2 className="text-xl font-bold flex items-center gap-2">
                         <Users className="w-5 h-5 text-indigo-600" /> Enrolled Students ({students.length})
                     </h2>
-                    <button onClick={onClose}><X className="w-5 h-5 text-gray-400 hover:text-gray-600" /></button>
+                    <div className="flex items-center gap-4">
+                        <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer select-none">
+                            <input type="checkbox" checked={hideGoogle} onChange={e => setHideGoogle(e.target.checked)} className="rounded text-indigo-600 focus:ring-indigo-500" />
+                            Hide Google Sign-ins
+                        </label>
+                        <button onClick={onClose}><X className="w-5 h-5 text-gray-400 hover:text-gray-600" /></button>
+                    </div>
                 </div>
 
                 <div className="flex-1 overflow-y-auto p-6">
@@ -326,18 +333,23 @@ function StudentsListModal({ onClose }: { onClose: () => void }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {students.map((student, i) => (
-                                    <tr key={student.userId || i} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                                        <td className="py-3 px-4 font-medium text-gray-900">{student.name || 'N/A'}</td>
-                                        <td className="py-3 px-4 text-gray-600">{student.email}</td>
-                                        <td className="py-3 px-4 text-xs text-gray-400">
-                                            {student.createdAt ? new Date(student.createdAt).toLocaleDateString() : '-'}
-                                        </td>
-                                        <td className="py-3 px-4 text-xs text-gray-400">
-                                            {student.lastLogin ? new Date(student.lastLogin).toLocaleDateString() : '-'}
-                                        </td>
-                                    </tr>
-                                ))}
+                                {students
+                                    .filter(s => !hideGoogle || (s.provider !== 'google.com' && !s.photoUrl?.includes('googleusercontent')))
+                                    .map((student, i) => (
+                                        <tr key={student.userId || i} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                                            <td className="py-3 px-4 font-medium text-gray-900">
+                                                {student.name || 'N/A'}
+                                                {student.provider === 'google.com' && <span className="ml-2 text-[10px] bg-red-100 text-red-600 px-1 rounded">G</span>}
+                                            </td>
+                                            <td className="py-3 px-4 text-gray-600">{student.email}</td>
+                                            <td className="py-3 px-4 text-xs text-gray-400">
+                                                {student.createdAt ? new Date(student.createdAt).toLocaleDateString() : '-'}
+                                            </td>
+                                            <td className="py-3 px-4 text-xs text-gray-400">
+                                                {student.lastLogin ? new Date(student.lastLogin).toLocaleDateString() : '-'}
+                                            </td>
+                                        </tr>
+                                    ))}
                             </tbody>
                         </table>
                     )}
